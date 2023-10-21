@@ -1,49 +1,44 @@
 // @todo: Темплейт карточки
 const cardTemplate = document.querySelector('#card-template').content;
-
-
-
 // @todo: DOM узлы
-const cardContainer = document.querySelector('.places__list');
-
-
-
+const cardContainer = document.querySelector('.places__list')
 // @todo: Функция создания карточки
-function createCard(cardArray) {
+function cardCreate(cardArray) {
   
-  cardArray.forEach(element => {
-    const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
 
+  cardArray.forEach(card => {
+    const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
 
     const cardImage = cardElement.querySelector('.card__image');
     const cardTitle = cardElement.querySelector('.card__title');
 
+    cardImage.src = card.link;
+    cardImage.alt = card.name;
+    cardTitle.textContent = card.name;
 
-    cardImage.src = element.link;
-    console.log(cardImage)
-    cardImage.alt = element.name;
-    cardTitle.textContent = element.name; 
-    
-
+    isLiked(cardElement);
     deleteCard(cardElement);
-    renderCards(cardElement);
+    renderCard(cardElement);
   });
   
 }
-
-createCard(initialCards);
-
 // @todo: Функция удаления карточки
-
 function deleteCard(cardElement) {
   const deleteButton = cardElement.querySelector('.card__delete-button');
-  deleteButton.addEventListener('click', function(e){
+  deleteButton.addEventListener('click', function(){
     cardElement.remove();
   });
 }
-
 // @todo: Вывести карточки на страницу
-function renderCards(cardElement) {
+function renderCard(cardElement) {
   cardContainer.append(cardElement);
 }
+// like button functionality
+function isLiked(cardElement) {
+  const likeButton = cardElement.querySelector('.card__like-button');
+  likeButton.addEventListener('click', function() {
+    likeButton.classList.toggle('card__like-button_is-active')
+  });
+}
 
+cardCreate(initialCards);
