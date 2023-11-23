@@ -1,6 +1,7 @@
 import { initialCards } from './scripts/cards';
 import './pages/index.css';
-import  { toggleLikeClass } from './card';
+import  { toggleLikeClass } from './components/card';
+import { openModal, closeModal } from './components/modal';
 
 
 
@@ -34,23 +35,11 @@ function deleteCard(cardElement) {
   });
 }
 
-
 function renderCard(cards) {
   cards.forEach(card => cardContainer.append(createSingleCard(card, deleteCard)));
 }
 
 renderCard(initialCards);
-
-document.addEventListener('click', function(evt){
-console.log(evt.target);
-})
-
-
-
-function openPopUp(popup) { 
-  popup.classList.add('popup_is-opened');
-}
-function closePopUp(popup) { popup.classList.remove('popup_is-opened');}
 
 const editButton = document.querySelector('.profile__edit-button');
 const editPopUp = document.querySelector('.popup_type_edit');
@@ -60,15 +49,14 @@ const cardButtons = document.querySelectorAll('.card__image');
 const cardPopUp = document.querySelector('.popup_type_image');
 const deletePopUp = document.querySelectorAll('.popup__close');
 
-
 editButton.addEventListener('click', function(){
-  openPopUp(editPopUp);
+  openModal(editPopUp);
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
 })
 
 newCardButton.addEventListener('click', function(){
-  openPopUp(newCardPopUp);
+  openModal(newCardPopUp);
 })
 
 cardButtons.forEach(card => {
@@ -84,24 +72,22 @@ cardButtons.forEach(card => {
       caption.textContent = e.target.alt;
     })
 
-    openPopUp(cardPopUp);
+    openModal(cardPopUp);
   })
 })
 
 deletePopUp.forEach(e => {
   e.addEventListener('click', function() {
-    closePopUp(e.parentElement.parentElement);
+    closeModal(e.parentElement.parentElement);
   })
+  
 })
-
 
 document.addEventListener('click', function(e){
   if(!e.target.classList.contains('popup_is-opened')){
-    closePopUp(e.target);
+    closeModal(e.target);
   }
 });
-
-
 
 const formElement = document.forms[0];// Воспользуйтесь методом querySelector()
 // Находим поля формы в DOM
@@ -127,7 +113,7 @@ function handleFormSubmit(evt) {
     profileName.textContent = name;
     profileJob.textContent = job;
     // Вставьте новые значения с помощью textContent
-    closePopUp(formElement.closest('.popup'))
+    closeModal(formElement.closest('.popup'))
 
 }
 
@@ -165,7 +151,7 @@ function handleFormSubmitAdd(evt) {
     linkInput.value = '';
     cardNameInput.value = '';
 
-    closePopUp(formElementAdd.closest('.popup'))
+    closeModal(formElementAdd.closest('.popup'))
 
 
     const cardImage = document.querySelector('.card__image');
@@ -180,7 +166,7 @@ function handleFormSubmitAdd(evt) {
       cardPopUpCaption.textContent = e.target.alt;
 
 
-      openPopUp(cardPopUp);
+      openModal(cardPopUp);
     })
     // Вставьте новые значения с помощью textContent
 }
@@ -188,4 +174,3 @@ function handleFormSubmitAdd(evt) {
 // Прикрепляем обработчик к форме:
 // он будет следить за событием “submit” - «отправка»
 formElementAdd.addEventListener('submit', handleFormSubmitAdd);
-
