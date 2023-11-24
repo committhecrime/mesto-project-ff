@@ -6,9 +6,7 @@ import { openModal, closeModal } from './components/modal';
 
 
 const cardTemplate = document.querySelector('#card-template').content;
-// @todo: DOM узлы
 const cardContainer = document.querySelector('.places__list');
-// @todo: Функция создания карточки
 
 
 function createSingleCard(card, deleteCard){
@@ -84,10 +82,18 @@ deletePopUp.forEach(e => {
 })
 
 document.addEventListener('click', function(e){
-  if(!e.target.classList.contains('popup_is-opened')){
+
+  if(!e.target.classList.contains('popup__content')){
+    console.log(e.target)
     closeModal(e.target);
   }
 });
+
+document.addEventListener('keydown', function(e){
+  if(e.key === 'Escape'){
+    closeModal(cardPopUp);
+  }
+})
 
 const formElement = document.forms[0];// Воспользуйтесь методом querySelector()
 // Находим поля формы в DOM
