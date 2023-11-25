@@ -1,16 +1,13 @@
-import {closeByEscape} from '../index.js'
+import { closeByEscape } from "../index.js";
 
-
-function openModal(popUp) { 
-  popUp.classList.add('popup_is-opened');
-  document.addEventListener('keydown', closeByEscape); 
+function openModal(popUp) {
+  popUp.classList.add("popup_is-opened");
+  document.addEventListener("keydown", closeByEscape);
 }
-
 
 function closeModal(popUp) {
-   popUp.classList.remove('popup_is-opened');
-   document.addEventListener('keydown', closeByEscape); 
+  popUp.classList.remove("popup_is-opened");
+  document.addEventListener("keydown", closeByEscape);
 }
 
-
-export {openModal,closeModal}
+export { openModal, closeModal };
