@@ -1,10 +1,10 @@
 import { initialCards } from './scripts/cards';
 import './pages/index.css';
-import  { deleteCard, likeCard, openCard } from './components/card';
+import  { deleteCard, likeCard, openCard, createSingleCard } from './components/card';
 import { openModal, closeModal } from './components/modal';
 
 
-const cardTemplate = document.querySelector('#card-template').content;
+export const cardTemplate = document.querySelector('#card-template').content;
 const cardContainer = document.querySelector('.places__list');
 export const cardImagePopUp = document.querySelector('.popup__image');
 export const cardPopUpCaption = document.querySelector('.popup__caption');
@@ -17,25 +17,9 @@ const profileJob = document.querySelector('.profile__description');
 const formElementAdd = document.forms[1];
 const linkInput = document.querySelector('.popup__input_type_url');
 const cardNameInput = document.querySelector('.popup__input_type_card-name');
+export const openedPopUp = document.querySelector('.popup_is-opened');
+export const popUp = document.querySelector('.popup');
 
-
-function createSingleCard(card, deleteCard, likeCard, openCard){
-  const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
-  const cardImage = cardElement.querySelector('.card__image');
-  const cardTitle = cardElement.querySelector('.card__title');
- 
-
-  cardImage.src = card.link;
-  cardImage.alt = card.name;
-  cardTitle.textContent = card.name;
-
-
-  deleteCard(cardElement);
-  likeCard(cardElement);
-  openCard(cardElement)
-
-  return cardElement;
-}
 
 function renderCard(cards) {
   cards.forEach(card => cardContainer.append(createSingleCard(card, deleteCard, likeCard, openCard)));
@@ -71,11 +55,19 @@ document.addEventListener('click', function(e){
   }
 });
 
-document.addEventListener('keydown', function(e){
-  if(e.key === 'Escape'){
-    closeModal(cardPopUp);
+
+export function closeByEscape(evt) {
+  if (evt.key === 'Escape') {
+    const openedPopup = document.querySelector('.popup_is-opened');
+    if (openedPopup) {
+      closeModal(openedPopup);
+         formElementAdd.reset();
+    }
   }
-})
+}
+
+
+
 
 function handleFormSubmit(evt) {
     evt.preventDefault(); 
@@ -111,20 +103,6 @@ function handleFormSubmitAdd(evt) {
     formElementAdd.reset()
 
     closeModal(formElementAdd.closest('.popup'))
-
-
-    const cardImage = document.querySelector('.card__image');
-  
-
-    cardImage.addEventListener('click', function(e){
- 
-      cardImagePopUp.src = e.target.src;
-      cardImagePopUp.alt = e.target.alt;
-      cardPopUpCaption.textContent = e.target.alt;
-
-
-      openModal(cardPopUp);
-    });
 }
 
 formElement.addEventListener('submit', handleFormSubmit);
