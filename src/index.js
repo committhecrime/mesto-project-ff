@@ -50,14 +50,15 @@ newCardButton.addEventListener("click", function () {
 
 deletePopUp.forEach((e) => {
   e.addEventListener("click", function () {
-    closeModal(e.parentElement.parentElement);
+    closeModal(openedPopup);
   });
 });
 
 document.addEventListener("click", function (e) {
-  if (!e.target.classList.contains("popup__content")) {
-    closeModal(e.target);
-  }
+   const openedPopup = document.querySelector(".popup_is-opened");
+    if (e.target === openedPopup) {
+      closeModal(openedPopup);
+    }
 });
 
 export function closeByEscape(evt) {
