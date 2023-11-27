@@ -36,7 +36,7 @@ const editButton = document.querySelector(".profile__edit-button");
 const editPopUp = document.querySelector(".popup_type_edit");
 const newCardPopUp = document.querySelector(".popup_type_new-card");
 export const cardPopUp = document.querySelector(".popup_type_image");
-const deletePopUp = document.querySelectorAll(".popup__close");
+const deletePopUps = document.querySelectorAll(".popup__close");
 
 editButton.addEventListener("click", function () {
   openModal(editPopUp);
@@ -46,10 +46,12 @@ editButton.addEventListener("click", function () {
 
 newCardButton.addEventListener("click", function () {
   openModal(newCardPopUp);
+  formElementAdd.reset();
 });
 
-deletePopUp.forEach((e) => {
+deletePopUps.forEach((e) => {
   e.addEventListener("click", function () {
+    const openedPopup = document.querySelector(".popup_is-opened");
     closeModal(openedPopup);
   });
 });
@@ -62,11 +64,12 @@ document.addEventListener("click", function (e) {
 });
 
 export function closeByEscape(evt) {
+  const openedPopup = document.querySelector(".popup_is-opened");
   if (evt.key === "Escape") {
-    const openedPopup = document.querySelector(".popup_is-opened");
+    
     if (openedPopup) {
       closeModal(openedPopup);
-      formElementAdd.reset();
+      
     }
   }
 }
