@@ -6,3 +6,17 @@
   padding: 25px 20px;
   /*Чтобы по ПЭПЭ отступы снизу-сверху одинаковые            */
 }
+
+.card__like {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+}
+
+.card__like-number {
+  color: #000;
+  text-align: center;
+  font-family: Inter;
+  font-size: 13px;
+}

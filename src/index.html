@@ -31,16 +31,18 @@
   </main>
   <footer class="footer page__section">
     <p class="footer__copyright">
-      © 2021 Mesto Russia
+      © 2023 Mesto Russia
     </p>
   </footer>
   <div class="popup popup_type_edit popup_is-animated">
     <div class="popup__content">
       <button type="button" class="popup__close"></button>
       <h3 class="popup__title">Редактировать профиль</h3>
-      <form class="popup__form" name="edit-profile">
-        <input type="text" name="name" class="popup__input popup__input_type_name" placeholder="Имя" required>
-        <input type="text" name="description" class="popup__input popup__input_type_description" placeholder="Занятие" required>
+      <form class="popup__form" name="edit-profile" novalidate>
+        <input id="name-input" type="text" name="name" class="popup__input popup__input_type_name" placeholder="Имя" pattern="^[a-zA-Zа-яА-ЯёЁ\s\-]+$" required minlength="2" maxlength="40" data-error-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы">
+        <span class="form__input-error name-input-error" ></span>
+        <input id="work-input" type="text" name="description" class="popup__input popup__input_type_description" placeholder="Занятие" pattern="^[a-zA-Zа-яА-ЯёЁ\s\-]+$" required minlength="2" maxlength="400" data-error-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы">
+        <span class="form__input-error work-input-error" ></span>
         <!--Можно добавить required, они про него знают-->
         <button type="submit" class="button popup__button">Сохранить</button>
       </form>
@@ -51,12 +53,26 @@
       <button type="button" class="popup__close"></button>
       <h3 class="popup__title">Новое место</h3>
       <form class="popup__form" name="new-place">
-        <input type="text" name="place-name" class="popup__input popup__input_type_card-name" placeholder="Название" required>
-        <input type="url" name="link" class="popup__input popup__input_type_url" placeholder="Ссылка на картинку" required>
+        <input id="place-input" type="text" name="place-name" class="popup__input popup__input_type_card-name" placeholder="Название" required pattern="^[a-zA-Zа-яА-ЯёЁ\s\-]+$" minlength="2" maxlength="30">
+        <span class="form__input-error place-input-error" ></span>
+        <input id="link-input" type="url" name="link" class="popup__input popup__input_type_url" placeholder="Ссылка на картинку" required>
+        <span class="form__input-error link-input-error" ></span>
         <button type="submit" class="button popup__button">Сохранить</button>
       </form>
     </div>
   </div>
+ <div class="popup popup_type_avatar-edit popup_is-animated">
+    <div class="popup__content">
+      <button type="button" class="popup__close"></button>
+      <h3 class="popup__title">Обновить аватар</h3>
+      <form class="popup__form" name="new-place">
+        <input id="place-input" type="url" name="place-name" class="popup__input popup__input_type_avatar" placeholder="Ссылка на картинку" required pattern="https?://\S*\.(jpg|jpeg|gif|png|bmp|webp)">
+        <span class="form__input-error place-input-error" ></span>
+        <button type="submit" class="button popup__button">Сохранить</button>
+      </form>
+    </div>
+  </div>
+
   <div class="popup popup_type_image popup_is-animated">
     <div class="popup__content popup__content_content_image">
       <button type="button" class="popup__close"></button>
@@ -64,18 +80,19 @@
       <p class="popup__caption"></p>
     </div>
   </div>
+  
 </div>
-<!--Относится к реализации 4-го спринта-->
+
 <template id="card-template">
-  <!--Про тег темплейт студенты узнают из уроков 4-го спринта-->
   <li class="places__item card">
     <img class="card__image" src="" alt="" />
     <button type="button" class="card__delete-button"></button>
-    <!--Фоновое, инлайном-->
     <div class="card__description">
-      <h2 class="card__title">
-      </h2>
-      <button type="button" class="card__like-button"></button>
+      <h2 class="card__title"></h2>
+      <div class="card__like">
+        <button type="button" class="card__like-button"></button>
+        <span class="card__like-number"></span>
+      </div>
     </div>
   </li>
 </template>

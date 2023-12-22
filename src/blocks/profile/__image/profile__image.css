@@ -11,6 +11,10 @@
   /*Макет очень кривоват, как считать этот отступ я хз. Проявите тут лояльность пока что*/
 }
 
+.hover-background {
+  background-image: url(../../../images/avatar-edit.svg);
+  z-index: 1;
+}
 @media screen and (max-width: 740px) {
   .profile__image {
     margin: 0 10px 0 0;
