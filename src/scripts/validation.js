@@ -1,5 +1,3 @@
-import { validationSettings } from "../index";
-
 const showInputError = (
   formElement,
   inputElement,

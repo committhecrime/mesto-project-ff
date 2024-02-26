@@ -17,4 +17,9 @@ function closeByEscape(evt) {
   }
 }
 
-
+export function closeByOverlay(evt) {
+  console.log(evt.target);
+  if (evt.target.classList.contains("popup")) {
+    closeModal(evt.target);
+  }
+}
